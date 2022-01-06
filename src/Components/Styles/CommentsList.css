@@ -1,0 +1,18 @@
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  max-width: 800px;
+  font-size: 16px;
+}
+
+.replay-msg {
+  padding-left: 60px;
+  padding-top: 20px;
+}
+
+.section-reply {
+  margin-left: 25px;
+}
