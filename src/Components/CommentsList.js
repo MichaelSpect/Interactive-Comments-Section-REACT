@@ -8,7 +8,8 @@ import NewMsg from "./NewMsg";
 
 const CommentsList = () => {
   const { currentUser, comments } = Data;
-  console.log(comments);
+  const [allComments, setAllComments] = useState(comments);
+  console.log(allComments);
   // Set state status for Reply Comment
   const [isReply, setIsReply] = useState(false);
   const [commentID, setCommentID] = useState(0);
@@ -21,11 +22,13 @@ const CommentsList = () => {
   };
   return (
     <section className="comments-list">
-      {comments.map((comment) => (
+      {allComments.map((comment) => (
         <>
           <SingleComment
             singleCommentClass="single-comment"
             comment={comment}
+            allComments={allComments}
+            setAllComments={setAllComments}
             // key={comment.id}
             // id={comment.id}
             // score={comment.score}

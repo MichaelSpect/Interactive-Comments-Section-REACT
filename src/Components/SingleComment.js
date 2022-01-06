@@ -7,7 +7,10 @@ const SingleComment = ({
   activeUser,
   onClickEditHandler,
   singleCommentClass,
+  allComments,
+  setAllComments,
 }) => {
+  console.log(allComments);
   let currentUser = "";
   if (activeUser) {
     currentUser = activeUser.username;
@@ -15,7 +18,12 @@ const SingleComment = ({
 
   return (
     <section className={singleCommentClass}>
-      <Likes score={comment.score} />
+      <Likes
+        score={comment.score}
+        id={comment.id}
+        allComments={allComments}
+        setAllComments={setAllComments}
+      />
 
       <div className="header-left">
         <div className="user-avatar">
