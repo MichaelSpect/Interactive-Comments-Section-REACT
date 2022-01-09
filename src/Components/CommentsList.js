@@ -4,12 +4,14 @@ import "./Styles/CommentsList.css";
 import Data from "../data.json";
 import SingleComment from "./SingleComment";
 import NewMsg from "./NewMsg";
+import DeleteComment from "./DeleteComment";
 // import ReplayMsg from "./ReplayMsg";
 
 const CommentsList = () => {
+  const [showModal, setShowModal] = useState(false);
   const { currentUser, comments } = Data;
   const [allComments, setAllComments] = useState(comments);
-  console.log(allComments);
+  // console.log(allComments);
   // Set state status for Reply Comment
   const [isReply, setIsReply] = useState(false);
   const [commentID, setCommentID] = useState(0);
@@ -20,16 +22,38 @@ const CommentsList = () => {
     setCommentID(id);
     // console.log(commentID);
   };
+  const displayModalHandler = function () {
+    showModal ? setShowModal(false) : setShowModal(true);
+    console.log(allComments);
+  };
+  const deleteCommentHandler = function (id) {
+    const newArr = allComments.map(function (comment) {
+      const filteredReplies = comment.replies.filter(
+        (comment) => comment.id !== id
+      );
+      return { ...comment, replies: filteredReplies };
+    });
+    setAllComments(newArr);
+    displayModalHandler();
+  };
+
   return (
     <section className="comments-list">
-      {allComments.map((comment) => (
+      {/* {showModal && (
+        <DeleteComment
+          displayModal={displayModalHandler}
+          deleteComment={deleteCommentHandler}
+        />
+      )} */}
+      {allComments.map((comment, index) => (
         <>
           <SingleComment
             singleCommentClass="single-comment"
             comment={comment}
             allComments={allComments}
             setAllComments={setAllComments}
-            // key={comment.id}
+            // index={index}
+            key={comment.id}
             // id={comment.id}
             // score={comment.score}
             // createdAt={comment.createdAt}
@@ -42,20 +66,32 @@ const CommentsList = () => {
 
           {isReply && comment.id === commentID && (
             <NewMsg
-              activeUserImg={currentUser.image.png}
+              activeUser={currentUser}
               userToReply={comment.user.username}
               btnType="REPLY"
             />
           )}
           {comment.replies.length > 0 && (
             <section className="section-reply">
-              {comment.replies.map((reply) => (
+              {comment.replies.map((reply, indexReply) => (
                 <>
+                  {showModal && (
+                    <DeleteComment
+                      displayModal={displayModalHandler}
+                      deleteComment={deleteCommentHandler}
+                      id={reply.id}
+                    />
+                  )}
                   <SingleComment
                     singleCommentClass="single-comment replay-msg"
                     key={reply.id}
                     comment={reply}
                     activeUser={currentUser}
+                    allComments={allComments}
+                    setAllComments={setAllComments}
+                    // index={index}
+                    // indexReply={indexReply}
+                    // pathReply={`[${index}].replies[${indexReply}]`}
                     // id={reply.id}
                     // score={reply.score}
                     // createdAt={reply.createdAt}
@@ -64,11 +100,12 @@ const CommentsList = () => {
                     // replyingTo={reply.replyingTo}
                     // content={reply.content}
 
+                    displayModal={displayModalHandler}
                     onClickEditHandler={clickEditHandler}
                   />
                   {isReply && reply.id === commentID && (
                     <NewMsg
-                      activeUserImg={currentUser.image.png}
+                      activeUser={currentUser}
                       userToReply={reply.user.username}
                       btnType="REPLY"
                     />
@@ -79,7 +116,7 @@ const CommentsList = () => {
           )}
         </>
       ))}
-      <NewMsg activeUserImg={currentUser.image.png} btnType="SEND" />
+      <NewMsg activeUser={currentUser} btnType="SEND" />
     </section>
   );
 };

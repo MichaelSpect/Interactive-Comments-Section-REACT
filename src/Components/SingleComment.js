@@ -9,8 +9,12 @@ const SingleComment = ({
   singleCommentClass,
   allComments,
   setAllComments,
+  index,
+  indexReply,
+  pathReply,
+  displayModal,
 }) => {
-  console.log(allComments);
+  // console.log(allComments);
   let currentUser = "";
   if (activeUser) {
     currentUser = activeUser.username;
@@ -21,8 +25,12 @@ const SingleComment = ({
       <Likes
         score={comment.score}
         id={comment.id}
+        comment={comment}
         allComments={allComments}
         setAllComments={setAllComments}
+        // index={index}
+        // indexReply={indexReply}
+        // pathReply={pathReply}
       />
 
       <div className="header-left">
@@ -45,7 +53,13 @@ const SingleComment = ({
           <div className="header-right user-edit">
             <div className="delete">
               <img src="./images/icon-delete.svg" alt="" />
-              <div className="call-action delete">Delete</div>
+              <div
+                className="call-action delete"
+                onClick={displayModal}
+                deleteComment={comment.id}
+              >
+                Delete
+              </div>
             </div>
             <div className="edit">
               <img src="./images/icon-edit.svg" alt="img-edit" />

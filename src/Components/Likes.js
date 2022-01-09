@@ -1,21 +1,38 @@
-// import { useState } from "react";
+import { useState } from "react";
 import "./Styles/Likes.css";
 
-const Likes = ({ score, allComments, setAllComments, id }) => {
-  // const [commScore, setCommScore] = useState(score);
+const Likes = ({
+  score,
+  allComments,
+  setAllComments,
+  id,
+  // comment,
+  // index,
+  // indexReply,
+  // pathReply,
+}) => {
+  const [commScore, setCommScore] = useState(score);
 
   const clickScorePlusHandler = function () {
-    // setCommScore((prevScore) => prevScore + 1);
-    // console.log(commScore);
-    setAllComments((prevAllComments) =>
-      prevAllComments.map((comment) =>
-        comment.id === id ? { ...comment, score: score + 1 } : comment
-      )
-    );
+    setCommScore((prevScore) => prevScore + 1);
+    // console.log("CurrentScore", commScore);
+    changeScoreStateHandler();
+  };
+  const clickScoreMinusHandler = function () {
+    setCommScore((prevScore) => prevScore - 1);
+    changeScoreStateHandler();
+  };
+  const changeScoreStateHandler = function () {
+    const newArr = allComments.map(function (comment) {
+      console.log(comment.score, commScore);
+      if (comment.id === id) return { ...comment, score: commScore };
+      const filteredReplies = comment.replies.map((comment) =>
+        comment.id === id ? { ...comment, score: commScore } : comment
+      );
+      return { ...comment, replies: filteredReplies };
+    });
+    setAllComments((prevComents) => newArr);
     console.log(allComments);
-    // const isSameID = comm.id === id;
-    // console.log(isSameID);
-    // setAllComments((prevAllComments) => prevAllComments.findIndex(isSameID)
   };
 
   return (
@@ -31,8 +48,13 @@ const Likes = ({ score, allComments, setAllComments, id }) => {
           fill="#C5C6EF"
         />
       </svg>
-      <div>{score}</div>
-      <svg width="11" height="3" xmlns="http://www.w3.org/2000/svg">
+      <div className="score-value">{commScore}</div>
+      <svg
+        onClick={clickScoreMinusHandler}
+        width="11"
+        height="3"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M9.256 2.66c.204 0 .38-.056.53-.167.148-.11.222-.243.222-.396V.722c0-.152-.074-.284-.223-.395a.859.859 0 0 0-.53-.167H.76a.859.859 0 0 0-.53.167C.083.437.009.57.009.722v1.375c0 .153.074.285.223.396a.859.859 0 0 0 .53.167h8.495Z"
           fill="#C5C6EF"
@@ -43,3 +65,15 @@ const Likes = ({ score, allComments, setAllComments, id }) => {
 };
 
 export default Likes;
+
+// const changeScoreStateHandler = function () {
+//   const newArr = allComments.map(function (comment) {
+//     if (comment.id === id) return { ...comment, score: commScore };
+//     const filteredReplies = comment.replies.map((comment) =>
+//       comment.id === id ? { ...comment, score: commScore } : comment
+//     );
+//     return { ...comment, replies: filteredReplies };
+//   });
+
+//   console.log(newArr);
+// };
