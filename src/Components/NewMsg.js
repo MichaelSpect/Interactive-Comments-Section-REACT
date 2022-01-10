@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./Styles/NewMsg.css";
 
 function NewMsg(props) {
+  const contentInputRef = useRef();
   const [newMsgContent, setNewMsgContent] = useState("");
   const createID = function () {
     return Math.floor(Math.random() * 1000);
@@ -27,7 +28,13 @@ function NewMsg(props) {
     }
   };
   const sendMsgHandler = function () {
-    console.log(newMsgContent);
+    const enteredComment = contentInputRef.current.textContent;
+    if (props.btnType === "SEND") {
+      console.log(enteredComment);
+    }
+    if (props.btnType === "REPLY") {
+      console.log(enteredComment);
+    }
   };
 
   return (
@@ -39,7 +46,7 @@ function NewMsg(props) {
         className="new-content msg-editable"
         contentEditable="true"
         data-placeholder=" Add a comment..."
-        onChange={(e) => console.log(e.target.value)}
+        ref={contentInputRef}
       >
         {`@${props.userToReply}. `}
       </div>
