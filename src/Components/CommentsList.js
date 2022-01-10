@@ -24,7 +24,7 @@ const CommentsList = () => {
   };
   const displayModalHandler = function () {
     showModal ? setShowModal(false) : setShowModal(true);
-    console.log(allComments);
+    // console.log(allComments);
   };
   const deleteCommentHandler = function (id) {
     const newArr = allComments.map(function (comment) {
@@ -69,6 +69,11 @@ const CommentsList = () => {
               activeUser={currentUser}
               userToReply={comment.user.username}
               btnType="REPLY"
+              allComments={allComments}
+              setAllComments={setAllComments}
+              parentCommentID={comment.id}
+              parentIndex={index}
+              setIsReply={setIsReply}
             />
           )}
           {comment.replies.length > 0 && (
@@ -108,6 +113,11 @@ const CommentsList = () => {
                       activeUser={currentUser}
                       userToReply={reply.user.username}
                       btnType="REPLY"
+                      allComments={allComments}
+                      setAllComments={setAllComments}
+                      parentCommentID={comment.id}
+                      parentIndex={index}
+                      setIsReply={setIsReply}
                     />
                   )}
                 </>
@@ -116,7 +126,12 @@ const CommentsList = () => {
           )}
         </>
       ))}
-      <NewMsg activeUser={currentUser} btnType="SEND" />
+      <NewMsg
+        activeUser={currentUser}
+        btnType="SEND"
+        allComments={allComments}
+        setAllComments={setAllComments}
+      />
     </section>
   );
 };
