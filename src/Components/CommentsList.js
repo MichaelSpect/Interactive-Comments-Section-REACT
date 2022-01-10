@@ -16,7 +16,7 @@ const CommentsList = () => {
   const [isReply, setIsReply] = useState(false);
   const [commentID, setCommentID] = useState(0);
 
-  const clickEditHandler = function (id) {
+  const clickReplyHandler = function (id) {
     // console.log(id);
     setIsReply(true);
     setCommentID(id);
@@ -52,7 +52,7 @@ const CommentsList = () => {
             comment={comment}
             allComments={allComments}
             setAllComments={setAllComments}
-            // index={index}
+            index={index}
             key={comment.id}
             // id={comment.id}
             // score={comment.score}
@@ -61,7 +61,7 @@ const CommentsList = () => {
             // userImage={comment.user.image.png}
             // content={comment.content}
 
-            onClickEditHandler={clickEditHandler}
+            onclickReplyHandler={clickReplyHandler}
           />
 
           {isReply && comment.id === commentID && (
@@ -94,8 +94,8 @@ const CommentsList = () => {
                     activeUser={currentUser}
                     allComments={allComments}
                     setAllComments={setAllComments}
-                    // index={index}
-                    // indexReply={indexReply}
+                    indexParent={index}
+                    indexReply={indexReply}
                     // pathReply={`[${index}].replies[${indexReply}]`}
                     // id={reply.id}
                     // score={reply.score}
@@ -106,7 +106,7 @@ const CommentsList = () => {
                     // content={reply.content}
 
                     displayModal={displayModalHandler}
-                    onClickEditHandler={clickEditHandler}
+                    onclickReplyHandler={clickReplyHandler}
                   />
                   {isReply && reply.id === commentID && (
                     <NewMsg

@@ -1,25 +1,70 @@
-// import { useState } from "react";
+import React, { useState, useRef } from "react";
+// import { FocusEvent } from "react";
+
 import "./Styles/SingleComment.css";
 import Likes from "./Likes";
 
 const SingleComment = ({
   comment,
   activeUser,
-  onClickEditHandler,
+  onclickReplyHandler,
   singleCommentClass,
   allComments,
   setAllComments,
-  index,
+  indexParent,
   indexReply,
   pathReply,
   displayModal,
 }) => {
+  const [isEdit, setIsEdit] = useState(false);
+  const contentEditRef = useRef();
   // console.log(allComments);
   let currentUser = "";
   if (activeUser) {
     currentUser = activeUser.username;
   }
+  const clickEditHandler = function () {
+    console.log("CLICK EDIT");
+    setIsEdit(true);
+    console.log("INDEX PARENR", indexParent);
+    // contentEditRef.focus();
+    // Activate contentEditable atribut on content comment
+  };
 
+  const updateCommentHandler = function () {
+    console.log("UPDATE");
+    const updatedContent = contentEditRef.current.innerText;
+    console.log(updatedContent);
+    console.log(comment);
+    console.log("ID", comment.id, indexParent, indexReply);
+    const newEditedObj = { ...comment, content: updatedContent };
+    console.log(newEditedObj);
+    const updatedComments = (allComments[indexParent].replies[
+      indexReply
+    ].content = updatedContent);
+    console.log(allComments);
+    // setAllComments(updatedComments);
+    // const newEditedParent = {
+    //   ...allComments[indexParent],
+    //   replies: [...allComments[indexParent].replies, newEditedObj],
+    // };
+    // const updatedAllComments = allComments.splice(
+    //   indexParent,
+    //   1,
+    //   newEditedParent
+    // );
+    // console.log(updatedAllComments);
+    // Update comment if comment is in replies array
+    // setAllComments(
+    //   prevComents.splice(indexParent, 1, {
+    //     ...prevComents[indexParent],
+    //     replies: [...prevComents[indexParent].replies, newEditedObj],
+    //   })
+    // );
+
+    setIsEdit(false);
+    console.log(allComments);
+  };
   return (
     <section className={singleCommentClass}>
       <Likes
@@ -63,21 +108,27 @@ const SingleComment = ({
             </div>
             <div className="edit">
               <img src="./images/icon-edit.svg" alt="img-edit" />
-              <div className="call-action edit">Edit</div>
+              <div className="call-action edit" onClick={clickEditHandler}>
+                Edit
+              </div>
             </div>
           </div>
         ) : (
           <div
             className="header-right header-reply"
-            onClick={() => onClickEditHandler(comment.id)}
+            onClick={() => onclickReplyHandler(comment.id)}
           >
             <img src="./images/icon-reply.svg" alt="img-reply" />
             <div className="call-action">Reply</div>
           </div>
         )}
       </div>
-
-      <section className="comment-content">
+      {/* COMMENT CONTENT SECTION */}
+      <section
+        className="comment-content"
+        contentEditable={isEdit ? "true" : "false"}
+        ref={contentEditRef}
+      >
         {comment.replyingTo ? (
           <span className="replay-to">@{comment.replyingTo} </span>
         ) : (
@@ -85,6 +136,12 @@ const SingleComment = ({
         )}
         {comment.content}
       </section>
+      {/* UPDATE BUTTON */}
+      {isEdit && (
+        <button className="button update-btn" onClick={updateCommentHandler}>
+          UPDATE
+        </button>
+      )}
     </section>
   );
 };
