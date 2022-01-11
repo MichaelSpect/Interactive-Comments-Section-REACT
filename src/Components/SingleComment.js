@@ -43,7 +43,7 @@ const SingleComment = ({
     const updatedComments = (allComments[indexParent].replies[
       indexReply
     ].content = updatedContent);
-    console.log(allComments);
+
     // setAllComments(updatedComments);
     // const newEditedParent = {
     //   ...allComments[indexParent],
@@ -85,10 +85,8 @@ const SingleComment = ({
         </div>
         <div className="user-name">
           {comment.user.username}
-          {comment.user.username === currentUser ? (
+          {comment.user.username === currentUser && (
             <span className="active-user">you</span>
-          ) : (
-            false
           )}
         </div>
         <div className="date-created">{comment.createdAt}</div>
@@ -132,7 +130,7 @@ const SingleComment = ({
         ref={contentEditRef}
       >
         {comment.replyingTo ? (
-          <span className="replay-to">@{comment.replyingTo} </span>
+          <span className="reply-to">@{comment.replyingTo} </span>
         ) : (
           false
         )}

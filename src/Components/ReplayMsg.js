@@ -1,6 +1,6 @@
 import React from "react";
 
-const ReplayMsg = (data) => {
+const replyMsg = (data) => {
   return (
     <section className="single-comment new-msg">
       <div className="user-avatar">
@@ -18,4 +18,4 @@ const ReplayMsg = (data) => {
   );
 };
 
-export default ReplayMsg;
+export default replyMsg;

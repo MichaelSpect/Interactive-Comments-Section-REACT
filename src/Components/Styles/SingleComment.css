@@ -91,7 +91,7 @@
 }
 /* CONTENT CONTAINER */
 
-.replay-to {
+.reply-to {
   color: hsl(238, 40%, 52%);
   font-weight: 500;
 }
@@ -99,8 +99,7 @@
 /* GRID LAYOUT RESPONSIVE */
 @media (max-width: 650px) {
   .single-comment {
-    /* grid-template-columns: auto auto; */
-    /* align-items: start; */
+    grid-template-columns: auto auto;
   }
   .single-comment .likes-container {
     grid-row: 3 / 4;

@@ -1,17 +1,12 @@
 .comments-list {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: stretch;
   width: 85%;
   max-width: 800px;
   font-size: 16px;
   z-index: 1;
-}
-
-.replay-msg {
-  padding-left: 60px;
-  padding-top: 20px;
 }
 
 .section-reply {
@@ -19,4 +14,17 @@
   padding-left: 25px;
   border-left: 2px solid hsl(223, 19%, 93%);
   margin-bottom: 15px;
+}
+
+.comments-list .single-comment.reply-msg {
+  width: 100%;
+  /* padding-left: 60px;
+  padding-top: 20px; */
+}
+
+@media (max-width: 460px) {
+  .section-reply {
+    margin-left: 10px;
+    padding-left: 15px;
+  }
 }

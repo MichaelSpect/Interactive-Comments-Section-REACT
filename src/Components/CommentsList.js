@@ -5,7 +5,7 @@ import Data from "../data.json";
 import SingleComment from "./SingleComment";
 import NewMsg from "./NewMsg";
 import DeleteComment from "./DeleteComment";
-// import ReplayMsg from "./ReplayMsg";
+// import replyMsg from "./replyMsg";
 
 const CommentsList = () => {
   const [showModal, setShowModal] = useState(false);
