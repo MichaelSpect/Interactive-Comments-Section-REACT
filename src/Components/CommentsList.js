@@ -88,7 +88,7 @@ const CommentsList = () => {
                     />
                   )}
                   <SingleComment
-                    singleCommentClass="single-comment replay-msg"
+                    singleCommentClass="single-comment reply-msg"
                     key={reply.id}
                     comment={reply}
                     activeUser={currentUser}

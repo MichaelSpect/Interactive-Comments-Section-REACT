@@ -23,12 +23,13 @@ const SingleComment = ({
   if (activeUser) {
     currentUser = activeUser.username;
   }
-  const clickEditHandler = function () {
-    console.log("CLICK EDIT");
+
+  const clickEditHandler = function (e) {
+    // console.log("CLICK EDIT", contentEditRef);
     setIsEdit(true);
-    console.log("INDEX PARENR", indexParent);
-    // contentEditRef.focus();
     // Activate contentEditable atribut on content comment
+    e.target.click();
+    contentEditRef.current.click();
   };
 
   const updateCommentHandler = function () {
@@ -124,9 +125,10 @@ const SingleComment = ({
         )}
       </div>
       {/* COMMENT CONTENT SECTION */}
-      <section
+      <div
         className="comment-content"
         contentEditable={isEdit ? "true" : "false"}
+        suppressContentEditableWarning={true}
         ref={contentEditRef}
       >
         {comment.replyingTo ? (
@@ -135,7 +137,7 @@ const SingleComment = ({
           false
         )}
         {comment.content}
-      </section>
+      </div>
       {/* UPDATE BUTTON */}
       {isEdit && (
         <button className="button update-btn" onClick={updateCommentHandler}>

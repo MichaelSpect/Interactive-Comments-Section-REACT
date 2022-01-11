@@ -15,6 +15,8 @@
 }
 
 .section-reply {
-  margin-left: 55px;
-  width: 100%;
+  margin-left: 25px;
+  padding-left: 25px;
+  border-left: 2px solid hsl(223, 19%, 93%);
+  margin-bottom: 15px;
 }

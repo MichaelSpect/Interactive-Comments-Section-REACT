@@ -65,6 +65,7 @@ function NewMsg(props) {
       <div
         className="new-content msg-editable"
         contentEditable="true"
+        suppressContentEditableWarning={true}
         data-placeholder=" Add a comment..."
         onKeyPress={() => setNewMsgContent("")}
         ref={contentInputRef}
