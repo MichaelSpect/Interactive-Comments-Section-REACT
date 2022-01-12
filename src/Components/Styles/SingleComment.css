@@ -15,9 +15,10 @@
   margin-bottom: 15px;
   line-height: 1.3em;
 }
-.comments-list .single-comment.reply-msg:last-child {
+
+/* .comments-list .single-comment.reply-msg:last-child {
   margin-bottom: 0;
-}
+} */
 /* GRID LAYOUT */
 .likes-container {
   grid-row: 1 / -1;

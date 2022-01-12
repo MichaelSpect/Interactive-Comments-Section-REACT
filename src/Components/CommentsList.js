@@ -18,11 +18,18 @@ const CommentsList = () => {
     setIsReply(true);
     setCommentID(id);
   };
-  const displayModalHandler = function () {
+
+  const displayModalHandler = function (id) {
     showModal ? setShowModal(false) : setShowModal(true);
+    // Passing by id from SingleComment to DeleteComment props
+    // commentIdToDelete = id;
+    setCommentID(id);
   };
   const deleteCommentHandler = function (id) {
-    const newArr = allComments.map(function (comment) {
+    // Iteration to filter main comments level
+    const mainCommentsArr = allComments.filter((comment) => comment.id !== id);
+    // Iteration to filter replies comments level
+    const newArr = mainCommentsArr.map(function (comment) {
       const filteredReplies = comment.replies.filter(
         (comment) => comment.id !== id
       );
@@ -34,16 +41,31 @@ const CommentsList = () => {
 
   return (
     <section className="comments-list">
+      {showModal && (
+        <DeleteComment
+          displayModal={displayModalHandler}
+          deleteMsg={deleteCommentHandler}
+          id={commentID}
+        />
+      )}
       {allComments.map((comment, index) => (
         <div key={comment.id}>
+          {/* {showModal && (
+            <DeleteComment
+              displayModal={displayModalHandler}
+              deleteMsg={deleteCommentHandler}
+              id={comment.id}
+            />
+          )} */}
           <SingleComment
-            activeUser={currentUser}
             singleCommentClass="single-comment"
+            activeUser={currentUser}
+            key={comment.id}
             comment={comment}
             allComments={allComments}
             setAllComments={setAllComments}
             index={index}
-            key={comment.id}
+            displayModal={displayModalHandler}
             onclickReplyHandler={clickReplyHandler}
           />
 
@@ -63,18 +85,18 @@ const CommentsList = () => {
             <section className="section-reply">
               {comment.replies.map((reply, indexReply) => (
                 <div key={reply.id}>
-                  {showModal && (
+                  {/* {showModal && (
                     <DeleteComment
                       displayModal={displayModalHandler}
                       deleteMsg={deleteCommentHandler}
                       id={reply.id}
                     />
-                  )}
+                  )} */}
                   <SingleComment
                     singleCommentClass="single-comment reply-msg"
+                    activeUser={currentUser}
                     key={reply.id}
                     comment={reply}
-                    activeUser={currentUser}
                     allComments={allComments}
                     setAllComments={setAllComments}
                     indexParent={index}

@@ -1,6 +1,4 @@
 import React, { useState, useRef } from "react";
-// import { FocusEvent } from "react";
-
 import "./Styles/SingleComment.css";
 import Likes from "./Likes";
 
@@ -11,6 +9,7 @@ const SingleComment = ({
   singleCommentClass,
   allComments,
   setAllComments,
+  index,
   indexParent,
   indexReply,
   pathReply,
@@ -29,6 +28,9 @@ const SingleComment = ({
     e.target.click();
     contentEditRef.current.click();
   };
+  const clickDeleteHandler = function (commentId) {
+    displayModal(commentId);
+  };
 
   const updateCommentHandler = function () {
     const updatedContent = contentEditRef.current.innerText;
@@ -37,9 +39,9 @@ const SingleComment = ({
     // Update comment on replies array of parent object
     allComments[indexParent]
       ? (allComments[indexParent].replies[indexReply].content = updatedContent)
-      : (allComments[indexParent].replies[indexReply].content = updatedContent);
+      : (allComments[index].content = updatedContent);
     setIsEdit(false);
-    console.log(allComments);
+    // console.log(allComments);
     // Update via setAllComments state - Doesn't work...  Unfinished!
     // setAllComments((prevComents) =>
     //   prevComents.splice(indexParent, 1, {
@@ -81,7 +83,7 @@ const SingleComment = ({
               <img src="./images/icon-delete.svg" alt="" />
               <div
                 className="call-action delete"
-                onClick={displayModal}
+                onClick={() => clickDeleteHandler(comment.id)}
                 deleteComment={comment.id}
               >
                 Delete
