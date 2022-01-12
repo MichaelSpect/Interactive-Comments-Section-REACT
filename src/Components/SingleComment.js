@@ -18,53 +18,36 @@ const SingleComment = ({
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const contentEditRef = useRef();
-  // console.log(allComments);
   let currentUser = "";
   if (activeUser) {
     currentUser = activeUser.username;
   }
 
   const clickEditHandler = function (e) {
-    // console.log("CLICK EDIT", contentEditRef);
-    setIsEdit(true);
     // Activate contentEditable atribut on content comment
+    setIsEdit(true);
     e.target.click();
     contentEditRef.current.click();
   };
 
   const updateCommentHandler = function () {
-    console.log("UPDATE");
     const updatedContent = contentEditRef.current.innerText;
-    console.log(updatedContent);
-    console.log(comment);
-    console.log("ID", comment.id, indexParent, indexReply);
-    const newEditedObj = { ...comment, content: updatedContent };
-    console.log(newEditedObj);
-    const updatedComments = (allComments[indexParent].replies[
-      indexReply
-    ].content = updatedContent);
+    // const newEditedObj = { ...comment, content: updatedContent };
 
-    // setAllComments(updatedComments);
-    // const newEditedParent = {
-    //   ...allComments[indexParent],
-    //   replies: [...allComments[indexParent].replies, newEditedObj],
-    // };
-    // const updatedAllComments = allComments.splice(
-    //   indexParent,
-    //   1,
-    //   newEditedParent
-    // );
-    // console.log(updatedAllComments);
-    // Update comment if comment is in replies array
-    // setAllComments(
-    //   prevComents.splice(indexParent, 1, {
-    //     ...prevComents[indexParent],
-    //     replies: [...prevComents[indexParent].replies, newEditedObj],
-    //   })
-    // );
-
+    // Update comment on replies array of parent object
+    allComments[indexParent].replies[indexReply].content = updatedContent;
     setIsEdit(false);
     console.log(allComments);
+    // Update via setAllComments state - Doesn't work...  Unfinished!
+    // setAllComments((prevComents) =>
+    //   prevComents.splice(indexParent, 1, {
+    //     ...prevComents[indexParent],
+    //     replies: [
+    //       ...prevComents[indexParent].replies[indexReply],
+    //       newEditedObj,
+    //     ],
+    //   })
+    // );
   };
   return (
     <section className={singleCommentClass}>
@@ -74,9 +57,6 @@ const SingleComment = ({
         comment={comment}
         allComments={allComments}
         setAllComments={setAllComments}
-        // index={index}
-        // indexReply={indexReply}
-        // pathReply={pathReply}
       />
 
       <div className="header-left">

@@ -5,26 +5,21 @@ import Data from "../data.json";
 import SingleComment from "./SingleComment";
 import NewMsg from "./NewMsg";
 import DeleteComment from "./DeleteComment";
-// import replyMsg from "./replyMsg";
+// import { useEffect } from "react/cjs/react.development";
 
 const CommentsList = () => {
   const [showModal, setShowModal] = useState(false);
   const { currentUser, comments } = Data;
   const [allComments, setAllComments] = useState(comments);
-  // console.log(allComments);
-  // Set state status for Reply Comment
   const [isReply, setIsReply] = useState(false);
   const [commentID, setCommentID] = useState(0);
 
   const clickReplyHandler = function (id) {
-    // console.log(id);
     setIsReply(true);
     setCommentID(id);
-    // console.log(commentID);
   };
   const displayModalHandler = function () {
     showModal ? setShowModal(false) : setShowModal(true);
-    // console.log(allComments);
   };
   const deleteCommentHandler = function (id) {
     const newArr = allComments.map(function (comment) {
@@ -39,14 +34,8 @@ const CommentsList = () => {
 
   return (
     <section className="comments-list">
-      {/* {showModal && (
-        <DeleteComment
-          displayModal={displayModalHandler}
-          deleteComment={deleteCommentHandler}
-        />
-      )} */}
       {allComments.map((comment, index) => (
-        <>
+        <div key={comment.id}>
           <SingleComment
             singleCommentClass="single-comment"
             comment={comment}
@@ -54,13 +43,6 @@ const CommentsList = () => {
             setAllComments={setAllComments}
             index={index}
             key={comment.id}
-            // id={comment.id}
-            // score={comment.score}
-            // createdAt={comment.createdAt}
-            // userName={comment.user.username}
-            // userImage={comment.user.image.png}
-            // content={comment.content}
-
             onclickReplyHandler={clickReplyHandler}
           />
 
@@ -79,11 +61,11 @@ const CommentsList = () => {
           {comment.replies.length > 0 && (
             <section className="section-reply">
               {comment.replies.map((reply, indexReply) => (
-                <>
+                <div key={reply.id}>
                   {showModal && (
                     <DeleteComment
                       displayModal={displayModalHandler}
-                      deleteComment={deleteCommentHandler}
+                      deleteMsg={deleteCommentHandler}
                       id={reply.id}
                     />
                   )}
@@ -96,15 +78,6 @@ const CommentsList = () => {
                     setAllComments={setAllComments}
                     indexParent={index}
                     indexReply={indexReply}
-                    // pathReply={`[${index}].replies[${indexReply}]`}
-                    // id={reply.id}
-                    // score={reply.score}
-                    // createdAt={reply.createdAt}
-                    // userName={reply.user.username}
-                    // userImage={reply.user.image.png}
-                    // replyingTo={reply.replyingTo}
-                    // content={reply.content}
-
                     displayModal={displayModalHandler}
                     onclickReplyHandler={clickReplyHandler}
                   />
@@ -120,11 +93,11 @@ const CommentsList = () => {
                       setIsReply={setIsReply}
                     />
                   )}
-                </>
+                </div>
               ))}
             </section>
           )}
-        </>
+        </div>
       ))}
       <NewMsg
         activeUser={currentUser}

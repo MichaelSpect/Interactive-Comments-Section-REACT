@@ -1,21 +1,11 @@
 import { useState } from "react";
 import "./Styles/Likes.css";
 
-const Likes = ({
-  score,
-  allComments,
-  setAllComments,
-  id,
-  // comment,
-  // index,
-  // indexReply,
-  // pathReply,
-}) => {
+const Likes = ({ score, allComments, setAllComments, id }) => {
   const [commScore, setCommScore] = useState(score);
 
   const clickScorePlusHandler = function () {
     setCommScore((prevScore) => prevScore + 1);
-    // console.log("CurrentScore", commScore);
     changeScoreStateHandler();
   };
   const clickScoreMinusHandler = function () {
@@ -32,7 +22,6 @@ const Likes = ({
       return { ...comment, replies: filteredReplies };
     });
     setAllComments((prevComents) => newArr);
-    console.log(allComments);
   };
 
   return (
@@ -60,15 +49,3 @@ const Likes = ({
 };
 
 export default Likes;
-
-// const changeScoreStateHandler = function () {
-//   const newArr = allComments.map(function (comment) {
-//     if (comment.id === id) return { ...comment, score: commScore };
-//     const filteredReplies = comment.replies.map((comment) =>
-//       comment.id === id ? { ...comment, score: commScore } : comment
-//     );
-//     return { ...comment, replies: filteredReplies };
-//   });
-
-//   console.log(newArr);
-// };

@@ -2,12 +2,9 @@ import React from "react";
 import "./Styles/DeleteComment.css";
 
 const DeleteComment = (props) => {
-  //   props.displayModal(showModal, setShowModal);
-  //   const cancelDelete = function () {
-  //     setShowModal(false);
-  //   };
   const deleteHandler = function () {
-    props.deleteComment(props.id);
+    // Call delete function from CommentsList.js via props and send comment.id to delete
+    props.deleteMsg(props.id);
   };
 
   return (

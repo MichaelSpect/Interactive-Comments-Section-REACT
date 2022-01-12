@@ -9,12 +9,7 @@
 .msg-editable:focus {
   outline: 0px solid transparent;
 }
-/* .msg-editable::after {
-  content: attr(data-placeholder);
-}
-.msg-editable:focus::after {
-  content: "  ";
-} */
+
 .send-btn {
   align-self: start;
 }

@@ -3,9 +3,6 @@
   grid-template-rows: 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  /* flex-direction: column;
-  justify-content: space-between;
-  align-items: center; */
   background-color: hsl(228, 33%, 97%);
   width: 36px;
   height: 80px;
@@ -13,9 +10,6 @@
   border-radius: 7px;
   font-size: 14px;
   font-weight: 500;
-
-  /* margin: 15px;
-  padding: 10px 8px; */
 }
 .score-minus,
 .score-plus {
@@ -37,7 +31,5 @@
 
     height: 36px;
     width: 85px;
-
-    /* align-self: start; */
   }
 }

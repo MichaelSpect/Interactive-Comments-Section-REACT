@@ -7,9 +7,6 @@ function NewMsg(props) {
   const createID = function () {
     return Math.floor(Math.random() * 1000);
   };
-  // console.log(createID());
-
-  // const newCommentObj = {};
 
   const sendMsgHandler = function () {
     const enteredComment = contentInputRef.current.textContent;
@@ -30,20 +27,10 @@ function NewMsg(props) {
 
     if (props.btnType === "SEND") {
       props.setAllComments((prevComents) => [...prevComents, newCommentObj]);
-      // Dodati brisanje NewMSg tj ponovno prazno renderovanje NewMSG
       setNewMsgContent("Add a comment...");
     }
     if (props.btnType === "REPLY") {
       const newReplyObj = { ...newCommentObj, replyingTo: props.userToReply };
-      console.log(newReplyObj);
-      console.log(props.parentCommentID);
-
-      // props.setAllComments((prevComents) =>
-      //   prevComents.splice(props.parentIndex, 1, {
-      //     ...prevComents[props.parentIndex],
-      //     replies: [...prevComents[props.parentIndex].replies, newReplyObj],
-      //   })
-      // );
 
       props.setAllComments((prevComents) => [
         ...prevComents.filter((comm) => comm.id !== props.parentCommentID),
@@ -70,7 +57,6 @@ function NewMsg(props) {
         onKeyPress={() => setNewMsgContent("")}
         ref={contentInputRef}
       >
-        {/* {`@${props.userToReply}. `} */}
         {newMsgContent}
       </div>
       <button className="button send-btn" onClick={sendMsgHandler}>
