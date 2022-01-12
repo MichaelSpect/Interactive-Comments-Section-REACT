@@ -37,6 +37,7 @@ const CommentsList = () => {
       {allComments.map((comment, index) => (
         <div key={comment.id}>
           <SingleComment
+            activeUser={currentUser}
             singleCommentClass="single-comment"
             comment={comment}
             allComments={allComments}

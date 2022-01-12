@@ -3,7 +3,11 @@ import "./Styles/NewMsg.css";
 
 function NewMsg(props) {
   const contentInputRef = useRef();
-  const [newMsgContent, setNewMsgContent] = useState("Add a comment...");
+  const [newMsgContent, setNewMsgContent] = useState(
+    props.userToReply
+      ? `@${props.userToReply} Add a comment...`
+      : "Add a comment..."
+  );
   const createID = function () {
     return Math.floor(Math.random() * 1000);
   };

@@ -35,7 +35,9 @@ const SingleComment = ({
     // const newEditedObj = { ...comment, content: updatedContent };
 
     // Update comment on replies array of parent object
-    allComments[indexParent].replies[indexReply].content = updatedContent;
+    allComments[indexParent]
+      ? (allComments[indexParent].replies[indexReply].content = updatedContent)
+      : (allComments[indexParent].replies[indexReply].content = updatedContent);
     setIsEdit(false);
     console.log(allComments);
     // Update via setAllComments state - Doesn't work...  Unfinished!
