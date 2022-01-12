@@ -1,13 +1,14 @@
 import React from "react";
+import Atribution from "./Components/Atribution";
 import CommentsList from "./Components/CommentsList";
 import "./Components/Styles/App.css";
 
 function App() {
   return (
     <section className="main-container">
-      <h1>Let's get started!</h1>
+      <h1>Frontend Mentor - Interactive comments section</h1>
       <CommentsList />
-      {/* <section className="comments-container"></section> */}
+      <Atribution />
     </section>
   );
 }

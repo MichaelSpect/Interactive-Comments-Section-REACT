@@ -81,7 +81,7 @@
   gap: 5px;
 }
 .delete {
-  margin-right: 10px;
+  margin-right: 5px;
   color: hsl(358, 79%, 66%);
 }
 .edit:hover,
