@@ -2,8 +2,8 @@ import React from "react";
 import "./Styles/DeleteComment.css";
 
 const DeleteComment = (props) => {
+  // Call delete function from CommentsList.js via props and send comment.id to delete
   const deleteHandler = function () {
-    // Call delete function from CommentsList.js via props and send comment.id to delete
     props.deleteMsg(props.id);
   };
 

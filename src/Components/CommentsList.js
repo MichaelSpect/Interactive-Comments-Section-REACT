@@ -50,13 +50,6 @@ const CommentsList = () => {
       )}
       {allComments.map((comment, index) => (
         <div key={comment.id}>
-          {/* {showModal && (
-            <DeleteComment
-              displayModal={displayModalHandler}
-              deleteMsg={deleteCommentHandler}
-              id={comment.id}
-            />
-          )} */}
           <SingleComment
             singleCommentClass="single-comment"
             activeUser={currentUser}
@@ -85,13 +78,6 @@ const CommentsList = () => {
             <section className="section-reply">
               {comment.replies.map((reply, indexReply) => (
                 <div key={reply.id}>
-                  {/* {showModal && (
-                    <DeleteComment
-                      displayModal={displayModalHandler}
-                      deleteMsg={deleteCommentHandler}
-                      id={reply.id}
-                    />
-                  )} */}
                   <SingleComment
                     singleCommentClass="single-comment reply-msg"
                     activeUser={currentUser}
