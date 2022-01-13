@@ -84,7 +84,7 @@ const SingleComment = ({
               <div
                 className="call-action delete"
                 onClick={() => clickDeleteHandler(comment.id)}
-                deleteComment={comment.id}
+                // deleteComment={comment.id}
               >
                 Delete
               </div>
