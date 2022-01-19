@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Styles/NewMsg.css";
 
 function NewMsg(props) {
@@ -12,6 +12,9 @@ function NewMsg(props) {
     return Math.floor(Math.random() * 1000);
   };
 
+  useEffect(() => {
+    contentInputRef.current.focus();
+  });
   const sendMsgHandler = function () {
     const enteredComment = contentInputRef.current.textContent;
     const newCommentObj = {
