@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 // import ReactDOM from "react-dom";
 import "./Styles/CommentsList.css";
 import Data from "../data.json";
@@ -13,10 +13,12 @@ const CommentsList = () => {
   const [allComments, setAllComments] = useState(comments);
   const [isReply, setIsReply] = useState(false);
   const [commentID, setCommentID] = useState(0);
+  const replyInput = useRef();
 
   const clickReplyHandler = function (id) {
     setIsReply(true);
     setCommentID(id);
+    // replyInput.current.focus();
   };
 
   const displayModalHandler = function (id) {
@@ -64,6 +66,7 @@ const CommentsList = () => {
 
           {isReply && comment.id === commentID && (
             <NewMsg
+              // ref={replyInput}
               activeUser={currentUser}
               userToReply={comment.user.username}
               btnType="REPLY"
@@ -92,6 +95,7 @@ const CommentsList = () => {
                   />
                   {isReply && reply.id === commentID && (
                     <NewMsg
+                      // ref={replyInput}
                       activeUser={currentUser}
                       userToReply={reply.user.username}
                       btnType="REPLY"

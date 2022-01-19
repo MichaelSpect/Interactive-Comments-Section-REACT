@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Styles/SingleComment.css";
 import Likes from "./Likes";
 
@@ -25,15 +25,39 @@ const SingleComment = ({
   const clickEditHandler = function (e) {
     // Activate contentEditable atribut on content comment
     setIsEdit(true);
-    e.target.click();
-    contentEditRef.current.click();
+    // setEditContent(contentEditRef.current.innerText);
   };
+
+  function setEndOfContenteditable(contentEditableElement) {
+    let range, selection;
+    if (document.createRange) {
+      range = document.createRange(); //Create a range
+      range.selectNodeContents(contentEditableElement); //Select the entire contents of the element with the range
+      range.collapse(false); //collapse the range to the end point. false means collapse to end rather than the start
+      selection = window.getSelection(); //get the selection object (allows you to change selection)
+      selection.removeAllRanges(); //remove any selections already made
+      selection.addRange(range); //make the range you have just created the visible selection
+    }
+  }
+  useEffect(() => {
+    // isEdit && contentEditRef.current.focus();
+    if (isEdit) {
+      setEndOfContenteditable(contentEditRef.current);
+    }
+  }, [isEdit]);
   const clickDeleteHandler = function (commentId) {
     displayModal(commentId);
   };
 
-  const updateCommentHandler = function () {
-    const updatedContent = contentEditRef.current.innerText;
+  const updateCommentHandler = function (replyToString) {
+    let updatedContent;
+    if (replyToString.startsWith("@")) {
+      updatedContent = contentEditRef.current.innerText.slice(
+        replyToString.length
+      );
+    } else {
+      updatedContent = contentEditRef.current.innerText;
+    }
     // const newEditedObj = { ...comment, content: updatedContent };
 
     // Update comment on replies array of parent object
@@ -113,16 +137,21 @@ const SingleComment = ({
         suppressContentEditableWarning={true}
         ref={contentEditRef}
       >
-        {comment.replyingTo ? (
-          <span className="reply-to">@{comment.replyingTo} </span>
-        ) : (
-          false
+        {comment.replyingTo && (
+          <span className="reply-to">{`@${comment.replyingTo} `}</span>
         )}
         {comment.content}
       </div>
       {/* UPDATE BUTTON */}
       {isEdit && (
-        <button className="button update-btn" onClick={updateCommentHandler}>
+        <button
+          className="button update-btn"
+          onClick={() =>
+            updateCommentHandler(
+              comment.replyingTo ? `@${comment.replyingTo}` : comment.content
+            )
+          }
+        >
           UPDATE
         </button>
       )}

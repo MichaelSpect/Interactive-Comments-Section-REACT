@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useImperativeHandle } from "react";
 import "./Styles/NewMsg.css";
 
 function NewMsg(props) {
@@ -14,7 +14,7 @@ function NewMsg(props) {
 
   useEffect(() => {
     contentInputRef.current.focus();
-  });
+  }, []);
   const sendMsgHandler = function () {
     const enteredComment = contentInputRef.current.textContent;
     const newCommentObj = {
