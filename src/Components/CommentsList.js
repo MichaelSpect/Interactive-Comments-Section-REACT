@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 // import ReactDOM from "react-dom";
 import "./Styles/CommentsList.css";
 import Data from "../data.json";
@@ -13,7 +13,6 @@ const CommentsList = () => {
   const [allComments, setAllComments] = useState(comments);
   const [isReply, setIsReply] = useState(false);
   const [commentID, setCommentID] = useState(0);
-  const replyInput = useRef();
 
   const clickReplyHandler = function (id) {
     setIsReply(true);
